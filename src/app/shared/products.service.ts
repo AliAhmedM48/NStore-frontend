@@ -48,7 +48,7 @@ export class ProductsService {
       id: 6,
       name: 'مج+نوتة',
       description: 'محفظة جلدية فاخرة بتصميم كلاسيكي.',
-      image: 'مج+نوتة.jpg',
+      image: 'مجونوتة.jpg',
       price: 200,
     },
     {
