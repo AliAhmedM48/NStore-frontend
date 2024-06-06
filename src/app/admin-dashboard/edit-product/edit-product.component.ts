@@ -24,7 +24,8 @@ export class EditProductComponent implements OnInit, OnDestroy {
   constructor(
     private _TransferState: TransferState,
     private _ProductsService: ProductsService,
-    private _ActivatedRoute: ActivatedRoute
+    private _ActivatedRoute: ActivatedRoute,
+    private _Router: Router
   ) {
     this._initEditForm();
     this.product = this._TransferState.get(
@@ -95,7 +96,7 @@ export class EditProductComponent implements OnInit, OnDestroy {
         .updateProduct(this.editForm.value)
         .subscribe({
           next: (response) => {
-            console.log(response);
+            this._Router.navigate(['/admin/products']);
           },
         });
     }

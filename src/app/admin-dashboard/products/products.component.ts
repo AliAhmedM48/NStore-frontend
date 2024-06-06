@@ -38,8 +38,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   onEdit(productData: Product) {
-    this._Router.navigate(['/admin/product', productData.id]);
+    this._Router.navigate(['/admin/product/edit/', productData.id]);
     this._TransferState.set(makeStateKey<Product>('product'), productData);
+  }
+
+  onDelete(id: number) {
+    this._ProductsService.deleteOne(id).subscribe({
+      next: (response) => {
+        this.products = this.products?.filter((product) => product.id != id);
+      },
+    });
   }
 
   ngOnDestroy(): void {

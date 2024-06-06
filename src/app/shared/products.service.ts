@@ -7,35 +7,28 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ProductsService {
+  private _baseAPIUrl = 'http://localhost:4000/api';
   constructor(private _HttpClient: HttpClient) {}
 
   private _products: Product[] = [];
 
-  // private products$ = new Observable<Product[]>((observer) => {
-  //   observer.next(this._products);
-  // });
-  // private _products$ = of(this._products);
+  createOne(productData: Product): Observable<any> {
+    return this._HttpClient.post(`${this._baseAPIUrl}/product`, productData);
+  }
 
   getProducts(): Observable<any> {
-    return this._HttpClient.get('http://localhost:4000/api/products');
+    return this._HttpClient.get(`${this._baseAPIUrl}/products`);
   }
 
   getProduct(id: number): Observable<Product | undefined> {
     return of(this._products.find((product) => product.id === id));
   }
 
-  updateProduct(productData: Product): Observable<Product> {
-    let oldProduct = this._products.find(
-      (product) => product.id === productData.id
-    );
+  deleteOne(id: number): Observable<any> {
+    return this._HttpClient.delete(`${this._baseAPIUrl}/product/${id}`);
+  }
 
-    oldProduct = { ...oldProduct, ...productData };
-    this._products = this._products.filter(
-      (product) => product.id !== productData.id
-    );
-    this._products = [...this._products, oldProduct];
-    console.log(this._products);
-
-    return of(oldProduct);
+  updateProduct(productData: Product): Observable<any> {
+    return this._HttpClient.put(`${this._baseAPIUrl}/product`, productData);
   }
 }

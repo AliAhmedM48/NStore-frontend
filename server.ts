@@ -4,11 +4,6 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 import bootstrap from './src/main.server';
-import morgan from 'morgan';
-
-import fs from 'fs';
-import path from 'path';
-import { routes } from './backend/routes';
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -23,14 +18,6 @@ export function app(): express.Express {
   server.set('views', browserDistFolder);
 
   // Example Express Rest API endpoints
-  server.use(express.json());
-  server.use(morgan('dev'));
-
-  server.get('/', (req, res) => {
-    res.json('Hello World!');
-  });
-
-  server.use('/api', routes);
 
   // Serve static files from /browser
   server.get(
