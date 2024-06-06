@@ -1,77 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Product } from './product.model';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor() {}
+  constructor(private _HttpClient: HttpClient) {}
 
-  private products: Product[] = [
-    {
-      id: 1,
-      name: 'محفظة جلد',
-      description: 'مجموعة عطور راقية تحتوي على عدة روائح مختلفة.',
-      image: 'محفظة.jpg',
-      price: 220,
-    },
-    {
-      id: 2,
-      name: 'توتي باج',
-      description: 'ساعة يد أنيقة مصنوعة من الفولاذ المقاوم للصدأ.',
-      image: 'توتي.jpg',
-      price: 750,
-    },
-    {
-      id: 3,
-      name: 'ساعة حائط',
-      description: 'قلادة ذهبية فاخرة مع تصميم عصري وأنيق.',
-      image: 'ساعة.jpg',
-      price: 1200,
-    },
-    {
-      id: 4,
-      name: 'كارت العيد',
-      description: 'مجموعة تحتوي على أنواع مختلفة من الشاي الفاخر.',
-      image: 'كارت.jpg',
-      price: 300,
-    },
-    {
-      id: 5,
-      name: 'مج حراري',
-      description: 'إطار صور رقمي لعرض الصور بجودة عالية.',
-      image: 'مج.jpg',
-      price: 400,
-    },
-    {
-      id: 6,
-      name: 'مج+نوتة',
-      description: 'محفظة جلدية فاخرة بتصميم كلاسيكي.',
-      image: 'مجونوتة.jpg',
-      price: 200,
-    },
-    {
-      id: 7,
-      name: 'منديل كتب كتاب',
-      description: 'محفظة جلدية فاخرة بتصميم كلاسيكي.',
-      image: 'منديل.jpg',
-      price: 200,
-    },
-    {
-      id: 8,
-      name: 'نوتة',
-      description: 'محفظة جلدية فاخرة بتصميم كلاسيكي.',
-      image: 'نوتة.jpg',
-      price: 200,
-    },
-  ];
+  private _products: Product[] = [];
 
-  private products$ = new Observable<Product[]>((observer) => {
-    observer.next(this.products);
-  });
+  // private products$ = new Observable<Product[]>((observer) => {
+  //   observer.next(this._products);
+  // });
+  // private _products$ = of(this._products);
 
-  getProducts(): Observable<Product[]> {
-    return this.products$;
+  getProducts(): Observable<any> {
+    return this._HttpClient.get('http://localhost:4000/api/products');
+  }
+
+  getProduct(id: number): Observable<Product | undefined> {
+    return of(this._products.find((product) => product.id === id));
+  }
+
+  updateProduct(productData: Product): Observable<Product> {
+    let oldProduct = this._products.find(
+      (product) => product.id === productData.id
+    );
+
+    oldProduct = { ...oldProduct, ...productData };
+    this._products = this._products.filter(
+      (product) => product.id !== productData.id
+    );
+    this._products = [...this._products, oldProduct];
+    console.log(this._products);
+
+    return of(oldProduct);
   }
 }

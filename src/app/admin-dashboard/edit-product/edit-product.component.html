@@ -1,1 +1,95 @@
-<p>edit-product works!</p>
+<!--
+  Heads up! 👋
+
+  Plugins:
+    - @tailwindcss/forms
+-->
+
+<div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-lg">
+    <h1 class="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
+      Update Product Data
+    </h1>
+
+    <!-- <p class="mx-auto mt-4 max-w-md text-center text-gray-500">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt
+      dolores deleniti inventore quaerat mollitia?
+    </p> -->
+
+    <form
+      [formGroup]="editForm"
+      (ngSubmit)="onEdit()"
+      class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8"
+    >
+      <!-- <p class="text-center text-lg font-medium">Sign in to your account</p> -->
+
+      <div>
+        <label for="name" class="sr-only">Name</label>
+
+        <div class="relative">
+          <input
+            type="text"
+            formControlName="name"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="Enter name"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="description" class="sr-only">Description</label>
+
+        <div class="relative">
+          <input
+            type="text"
+            formControlName="description"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="Enter description"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="price" class="sr-only">Price</label>
+
+        <div class="relative">
+          <input
+            type="number"
+            formControlName="price"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="Enter price"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="image" class="sr-only">Image</label>
+
+        <!-- <div class="relative">
+          <img
+            [src]="'/products/' + product?.image"
+            [alt]="product?.name"
+            width="100"
+          />
+        </div> -->
+
+        <div class="relative">
+          <input
+            type="file"
+            (change)="onImageChange($event)"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="Enter image"
+          />
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="!editForm.valid"
+        class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
+      >
+        Update
+      </button>
+    </form>
+  </div>
+</div>

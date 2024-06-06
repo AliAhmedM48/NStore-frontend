@@ -23,7 +23,9 @@ export class ProductsComponent implements OnInit {
       .getProducts()
       .subscribe({
         next: (response) => {
-          this.products = response;
+          console.log(response);
+
+          this.products = response.data;
         },
       });
   }

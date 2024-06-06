@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TransferState,
+  makeStateKey,
+} from '@angular/core';
 import { ProductsService } from '../../shared/products.service';
 import { Product } from '../../shared/product.model';
 import { Subscription } from 'rxjs';
@@ -14,7 +20,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   private _getProductsSubscription: Subscription = new Subscription();
   constructor(
     private _ProductsService: ProductsService,
-    private _Router: Router
+    private _Router: Router,
+    private _TransferState: TransferState
   ) {}
   ngOnInit(): void {
     this.fetchProducts();
@@ -31,9 +38,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   onEdit(productData: Product) {
-    this._Router.navigate(['/admin/product', productData.id], {
-      state: { product: productData },
-    });
+    this._Router.navigate(['/admin/product', productData.id]);
+    this._TransferState.set(makeStateKey<Product>('product'), productData);
   }
 
   ngOnDestroy(): void {
