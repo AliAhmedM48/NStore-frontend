@@ -20,27 +20,16 @@ export function app(): express.Express {
   // Example Express Rest API endpoints
 
   // Serve static files from /browser
-  server.get(
-    '**',
-    express.static(browserDistFolder, {
-      maxAge: '0',
-      cacheControl: false,
-      etag: false,
-      lastModified: false,
-      index: 'index.html',
-    })
-  );
-
-  // Middleware to disable caching for all routes
-  server.use((req, res, next) => {
-    res.set(
-      'Cache-Control',
-      'no-store, no-cache, must-revalidate, proxy-revalidate'
-    );
-    res.set('Pragma', 'no-cache');
-    res.set('Expires', '0');
-    next();
-  });
+  // server.get(
+  //   '**',
+  //   express.static(browserDistFolder, {
+  //     maxAge: '0',
+  //     cacheControl: false,
+  //     etag: false,
+  //     lastModified: false,
+  //     index: 'index.html',
+  //   })
+  // );
 
   // All regular routes use the Angular engine
   server.get('**', (req, res, next) => {
