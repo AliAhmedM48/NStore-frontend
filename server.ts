@@ -31,6 +31,17 @@ export function app(): express.Express {
     })
   );
 
+  // Middleware to disable caching for all routes
+  server.use((req, res, next) => {
+    res.set(
+      'Cache-Control',
+      'no-store, no-cache, must-revalidate, proxy-revalidate'
+    );
+    res.set('Pragma', 'no-cache');
+    res.set('Expires', '0');
+    next();
+  });
+
   // All regular routes use the Angular engine
   server.get('**', (req, res, next) => {
     const { protocol, originalUrl, baseUrl, headers } = req;
