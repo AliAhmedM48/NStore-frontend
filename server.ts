@@ -23,7 +23,10 @@ export function app(): express.Express {
   server.get(
     '**',
     express.static(browserDistFolder, {
-      maxAge: '1y',
+      maxAge: '0',
+      cacheControl: false,
+      etag: false,
+      lastModified: false,
       index: 'index.html',
     })
   );
