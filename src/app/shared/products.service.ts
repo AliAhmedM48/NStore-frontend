@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Product } from './product.model';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +17,11 @@ export class ProductsService {
   }
 
   getProducts(): Observable<any> {
-    return this._HttpClient.get(`${this._baseAPIUrl}/products`);
+    const headers = new HttpHeaders({
+      'Cache-Control': 'no-cache',
+      Pragma: 'no-cache',
+    });
+    return this._HttpClient.get(`${this._baseAPIUrl}/products`, { headers });
   }
 
   getProduct(id: number): Observable<Product | undefined> {
