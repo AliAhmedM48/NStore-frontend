@@ -7,7 +7,7 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
   providedIn: 'root',
 })
 export class ProductsService {
-  private _baseAPIUrl = 'http://localhost:4000/api';
+  private _baseAPIUrl = 'https://nstore-backend.onrender.com/api';
   constructor(private _HttpClient: HttpClient) {}
 
   private _products: Product[] = [];
