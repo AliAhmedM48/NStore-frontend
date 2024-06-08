@@ -1,1 +1,15 @@
+<a [routerLink]="['/admin/products']" routerLinkActive="router-link-active">
+  adime
+</a>
+<a [routerLink]="['/']" routerLinkActive="router-link-active"> user </a>
 <router-outlet></router-outlet>
+<div style="margin-top: 25px">
+  Time from the
+  <span style="font-weight: 900; color: red; margin-right: 15px">BROWSER:</span>
+  {{ browserTime }}
+</div>
+<div style="margin-top: 25px">
+  Time from the
+  <span style="font-weight: 900; color: red; margin-right: 15px">SERVER:</span>
+  {{ serverTime }}
+</div>

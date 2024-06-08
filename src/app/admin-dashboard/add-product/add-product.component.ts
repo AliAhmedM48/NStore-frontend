@@ -20,7 +20,9 @@ export class AddProductComponent implements OnInit, OnDestroy {
     this._initAddForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log('add');
+  }
 
   private _initAddForm() {
     this.addForm = new FormGroup({

@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this._initLoginForm();
+    console.log('login');
   }
 
   private _initLoginForm() {
